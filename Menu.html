@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" href="Menustyle.css">
+</head>
+<body>
+    <header>
+        <h1>Menu</h1>
+    </header>
+
+    <div class="container">
+        <form action="submit_orders.php" method="POST">
+            <!-- Table Selection -->
+            <div class="tables">
+                <h2>Tables</h2>
+                <div class="table-grid">
+                    <!-- Dynamically add table options -->
+                    <?php for ($i = 1; $i <= 18; $i++) { ?>
+                        <input type="radio" name="table" value="Table <?php echo $i; ?>" id="table<?php echo $i; ?>">
+                        <label for="table<?php echo $i; ?>">Table <?php echo $i; ?></label><br>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <!-- Guest Selection -->
+            <div class="guest-selection">
+                <label for="total-guests">Total Guests:</label>
+                <input type="number" id="total-guests" name="total-guests" min="1" placeholder="Enter total guests" required>
+            </div>
+
+            <div class="guest-selection" id="guest-selection">
+                <!-- Guest buttons will be dynamically generated on the PHP backend -->
+            </div>
+
+            <!-- Menu Items -->
+            <h3>Starters</h3>
+            <div class="menu-item">
+                <label>Bruschetta</label>
+                <input type="checkbox" name="starters[]" value="Bruschetta">
+            </div>
+            <div class="menu-item">
+                <label>Caesar Salad</label>
+                <input type="checkbox" name="starters[]" value="Caesar Salad">
+            </div>
+            <div class="menu-item">
+                <label>Stuffed Mushrooms</label>
+                <input type="checkbox" name="starters[]" value="Stuffed Mushrooms">
+            </div>
+            <div class="menu-item">
+                <label>Chicken Wings</label>
+                <input type="checkbox" name="starters[]" value="Chicken Wings">
+            </div>
+
+            <!-- Main Meals -->
+            <h3>Main Meals</h3>
+            <div class="menu-item">
+                <label>Margherita Pizza</label>
+                <input type="checkbox" name="mains[]" value="Margherita Pizza">
+            </div>
+            <div class="menu-item">
+                <label>Spaghetti Carbonara</label>
+                <input type="checkbox" name="mains[]" value="Spaghetti Carbonara">
+            </div>
+            <div class="menu-item">
+                <label>Grilled Chicken</label>
+                <input type="checkbox" name="mains[]" value="Grilled Chicken">
+            </div>
+
+            <!-- Submit Order -->
+            <button type="submit" name="submit">Submit Order</button>
+        </form>
+    </div>
+</body>
+</html>
