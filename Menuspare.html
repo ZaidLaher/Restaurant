@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" href="Menustyle.css">
+</head>
+<body>
+    <header>
+        <h1>Menu</h1>
+    </header>
+
+    <div class="container">
+        <!-- Tables Section -->
+        <div class="tables">
+            <h2>Tables</h2>
+            <div class="table-grid" id="table-grid">
+                <!-- Table buttons will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Order Section -->
+        <div class="order-section">
+            <h2>Order</h2>
+            <div id="selected-table">No table selected</div>
+
+            <div class="guest-selection">
+                <label for="total-guests">Total Guests:</label>
+                <input type="number" id="total-guests" min="1" placeholder="Enter total guests">
+                <button onclick="setTotalGuests()">Set Guests</button>
+            </div>
+
+            <div class="guest-selection" id="guest-selection">
+                <!-- Guest buttons will be dynamically generated -->
+            </div>
+
+            <h3>Starters</h3>
+
+                <div class="menu-item">
+                    <label>Bruschetta</label>
+                    <input type="checkbox" value="Bruschetta" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Caesar Salad</label>
+                    <input type="checkbox" value="Caesar Salad" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Stuffed Mushrooms</label>
+                    <input type="checkbox" value="Stuffed Mushrooms" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Chicken Wings</label>
+                    <input type="checkbox" value="Chicken Wings" class="menu-input">
+                </div>
+
+
+                <h3>Main Meals</h3>
+
+                <div class="menu-item">
+                    <label>Margherita Pizza</label>
+                    <input type="checkbox" value="Margherita Pizza" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Spaghetti Carbonara</label>
+                    <input type="checkbox" value="Spaghetti Carbonara" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Grilled Chicken</label>
+                    <input type="checkbox" value="Grilled Chicken" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Beef Tacos</label>
+                    <input type="checkbox" value="Beef Tacos" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Vegetable Stir-Fry</label>
+                    <input type="checkbox" value="Vegetable Stir-Fry" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Fish and Chips</label>
+                    <input type="checkbox" value="Fish and Chips" class="menu-input">
+                </div>
+
+
+                <h3>Desserts</h3>
+
+                <div class="menu-item">
+                    <label> Chocolate Brownie</label>
+                    <input type="checkbox" value="Chocolate Brownie" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Chessecake</label>
+                    <input type="checkbox" value="Chessecake" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Apple Pie</label>
+                    <input type="checkbox" value="Apple Pie" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Tiramisu</label>
+                    <input type="checkbox" value="Tiramisu" class="menu-input">
+                </div>
+
+                
+
+                <h3>Sides</h3>
+
+                <div class="menu-item">
+                    <label>Garlic Bread</label>
+                    <input type="checkbox" value="Garlic Bread" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Hot Chips</label>
+                    <input type="checkbox" value="Hot Chips" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Eggs</label>
+                    <input type="checkbox" value="Eggs" class="menu-input">
+                </div>
+
+
+
+
+
+                <h3>Small Portions</h3>
+
+                <div class="menu-item">
+                    <label>Chicken Fillet burger</label>
+                    <input type="checkbox" value="Chicken Filler Burger" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Mini Pizza</label>
+                    <input type="checkbox" value="Mini Pizza" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Rice</label>
+                    <input type="checkbox" value="Rice" class="menu-input">
+                </div>
+
+
+                
+                <h3>Drinks</h3>
+                <div class="menu-item">
+                    <label>Coke</label>
+                    <input type="checkbox" value="Coke" class="menu-input">
+                </div>
+
+                <div class="menu-item">
+                    <label>Orange Juice</label>
+                    <input type="checkbox" value="Orange Juice" class="menu-input">
+                </div>
+            </div>
+            <button onclick="addOrder()">Add Order</button>
+            <button onclick="submitAllOrders()">Submit All</button>
+        </div>
+
+        <!-- Kitchen Section -->
+        <div class="kitchen">
+            <h2>Kitchen</h2>
+            <div id="kitchen-orders">
+                <!-- Orders will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tableGrid = document.getElementById('table-grid');
+        const kitchenOrders = document.getElementById('kitchen-orders');
+        const selectedTable = document.getElementById('selected-table');
+        const guestSelection = document.getElementById('guest-selection');
+
+        let activeTable = null;
+        let totalGuests = 0;
+        let activeGuest = null;
+        let tableOrders = {}; // To store orders for each guest at the table
+
+        // Generate tables
+        for (let i = 1; i <= 18; i++) {
+            const table = document.createElement('div');
+            table.classList.add('table');
+            table.textContent = `Table ${i}`;
+            table.onclick = () => selectTable(i);
+            tableGrid.appendChild(table);
+        }
+
+        function selectTable(tableNumber) {
+            activeTable = tableNumber;
+            activeGuest = null;
+            totalGuests = 0;
+            tableOrders = {}; // Reset orders for the table
+            selectedTable.textContent = `Table ${tableNumber}`;
+            document.querySelectorAll('.table').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.table:nth-child(${tableNumber})`).classList.add('active');
+            guestSelection.innerHTML = ''; // Clear guest buttons
+        }
+
+        function setTotalGuests() {
+            const input = document.getElementById('total-guests');
+            totalGuests = parseInt(input.value);
+            if (!totalGuests || totalGuests < 1) {
+                alert('Please enter a valid number of guests!');
+                return;
+            }
+            generateGuestButtons();
+        }
+
+        function generateGuestButtons() {
+            guestSelection.innerHTML = '';
+            for (let i = 1; i <= totalGuests; i++) {
+                const guestButton = document.createElement('button');
+                guestButton.textContent = `Guest ${i}`;
+                guestButton.onclick = () => selectGuest(i);
+                guestSelection.appendChild(guestButton);
+            }
+        }
+
+        function selectGuest(guestNumber) {
+            activeGuest = guestNumber;
+            document.querySelectorAll('#guest-selection button').forEach(b => b.classList.remove('active'));
+            document.querySelector(`#guest-selection button:nth-child(${guestNumber})`).classList.add('active');
+        }
+
+        function addOrder() {
+            if (!activeTable) {
+                alert('Please select a table first!');
+                return;
+            }
+            if (!activeGuest) {
+                alert('Please select a guest first!');
+                return;
+            }
+
+            const selectedItems = Array.from(document.querySelectorAll('.menu-input:checked'))
+                .map(input => input.value);
+
+            if (selectedItems.length === 0) {
+                alert('Please select at least one menu item!');
+                return;
+            }
+
+            if (!tableOrders[activeGuest]) {
+                tableOrders[activeGuest] = [];
+            }
+
+            tableOrders[activeGuest] = tableOrders[activeGuest].concat(selectedItems);
+
+            // Clear selected checkboxes
+            document.querySelectorAll('.menu-input:checked').forEach(input => (input.checked = false));
+
+            alert(`Order added for Guest ${activeGuest} at Table ${activeTable}`);
+        }
+
+        function submitAllOrders() {
+            if (!activeTable) {
+                alert('Please select a table first!');
+                return;
+            }
+
+            const ordersToSubmit = Object.keys(tableOrders).map(guestNumber => ({
+                guest: guestNumber,
+                items: tableOrders[guestNumber]
+            }));
+
+            if (ordersToSubmit.length === 0) {
+                alert('No orders to submit!');
+                return;
+            }
+
+            const timestamp = new Date().toLocaleTimeString();
+            const date = new Date().toLocaleDateString();
+
+            const orderDiv = document.createElement('div');
+            orderDiv.classList.add('order');
+            orderDiv.innerHTML = `
+                <strong>Table ${activeTable}</strong><br>
+                Date: ${date}<br>
+                Time: ${timestamp}<br>
+                ${ordersToSubmit
+                    .map(
+                        order => `
+                    <strong>Guest ${order.guest}:</strong>
+                    <ul>${order.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                `
+                    )
+                    .join('')}
+                <button onclick="completeOrder(this)">Mark as Completed</button>
+            `;
+            kitchenOrders.appendChild(orderDiv);
+
+            // Reset orders for the table
+            tableOrders = {};
+            alert(`All orders submitted for Table ${activeTable}`);
+        }
+
+        function completeOrder(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
