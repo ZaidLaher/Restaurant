@@ -1,0 +1,41 @@
+h1{
+    color: purple;
+}
+
+input,textarea{
+    padding: 10px;
+    border: 1px solid yellow;
+    width: 200px;
+    color: darkgray;
+    box-shadow: rga(0,0,0,0,1) 0px 0px 8px;
+}
+
+textarea{
+    width:200px;
+    height:150px;
+    max-width: 400px;
+    line-height: 18px;
+
+}
+
+input:hover, textarea:hover,
+input:focus,textarea:focus{
+    border-color:1px solid grey;
+    box-shadow: rga(0,0,0,0,1) 0px 0px 8px;
+} 
+
+.form label{
+    margin-left: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    color: red;
+}
+
+.usersubmit input{
+    width: 100px;
+    height: 40px;
+    background-color: palevioletred;
+    color: bisque;
+    border-radius: 3px;
+
+}
