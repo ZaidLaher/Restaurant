@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="Restaurantstyle.css">
+    <link rel="stylesheet" href="contactstyle.css">
+
+
+</head>
+
+<body> 
+
+<!-- Creating containers for my webpage layout-->
+
+<!-- THIS IS THE LOGO-->
+<div class="div1"> <img src="Restaurant logo.png" width="150" height="150"/>       
+
+</div>
+
+   
+<header>
+
+        <nav>
+            <ul> 
+                <li><a href="Restaurant2.html">Home</a></li>
+                <li><a href="Menu.html">Menu</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="Reservations.html">Reservations</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+        
+            <li id="login"><a href="LoginPage.html">Login</a></li>
+            <li id="login"><a href="Signup.html">Signup</a></li>
+            </ul>
+
+        </nav>
+
+<!--Create a div id for burger icon-->
+
+        <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+        
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+
+        <ul class="mobile-menu">
+
+            <li><a href="Restaurant2.html">Home</a></li>
+            <li><a href="Menu.html">Advice</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="Reservations.html">Risk assessment</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+
+
+        </ul>
+
+
+
+        </div>
+
+
+
+</header>
+
+<h1> Contact Us</h1>
+
+<form class="form" action="contactform.php" method="POST">
+    <p class="username">
+        <input type="text" name="name" id="name" placeholder="Enter your name" required>
+        <label for="name"> Name </label>
+    </p>
+
+    <p class="useremail">
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+        <label for="email">Email</label>
+    </p>
+
+    <p class="usercontact">
+        <input type="text" name="contact" id="contact" placeholder="Contact number" required>
+        <label for="contact">Phone Number</label>
+    </p>
+
+    <p class="usertext">
+        <textarea name="text" placeholder="Write your message here" required></textarea>
+        <label for="message">Message</label>
+    </p>
+
+    <p class="usersubmit">
+        <input type="submit" name="submit" value="Submit">
+    </p>
+    
+</form>
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+</html>
